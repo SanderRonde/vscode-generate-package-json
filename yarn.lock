@@ -3735,6 +3735,16 @@ __metadata:
   languageName: node
   linkType: hard
 
+"prettier-plugin-sort-imports@npm:^1.5.11":
+  version: 1.5.11
+  resolution: "prettier-plugin-sort-imports@npm:1.5.11"
+  dependencies:
+    prettier: ^2.5.1
+    typescript: ^4.0.3
+  checksum: 27aaba0676954b254972136fd4b2c8f26e30f2d6261f7f0c20412bdb5481c431e755c62ae81f51f07dcc8f7443f5f85bdf66409508f489266d856592d835dd81
+  languageName: node
+  linkType: hard
+
 "prettier@npm:^2.1.2, prettier@npm:^2.5.1":
   version: 2.5.1
   resolution: "prettier@npm:2.5.1"
@@ -4573,7 +4583,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"typescript@npm:^4.5.5":
+"typescript@npm:^4.0.3, typescript@npm:^4.5.5":
   version: 4.5.5
   resolution: "typescript@npm:4.5.5"
   bin:
@@ -4583,7 +4593,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"typescript@patch:typescript@^4.5.5#~builtin<compat/typescript>":
+"typescript@patch:typescript@^4.0.3#~builtin<compat/typescript>, typescript@patch:typescript@^4.5.5#~builtin<compat/typescript>":
   version: 4.5.5
   resolution: "typescript@patch:typescript@npm%3A4.5.5#~builtin<compat/typescript>::version=4.5.5&hash=493e53"
   bin:
@@ -4706,6 +4716,7 @@ __metadata:
     eslint-plugin-unused-imports: ^2.0.0
     gts: ^3.1.0
     prettier: ^2.5.1
+    prettier-plugin-sort-imports: ^1.5.11
     ts-node: ^10.5.0
     typescript: ^4.5.5
   languageName: unknown
