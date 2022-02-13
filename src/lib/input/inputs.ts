@@ -15,6 +15,7 @@ Arguments:
 --prefix: optional prefix to put before all command palette commands
 -h: show this help dialog
 `);
+	// eslint-disable-next-line no-process-exit
 	process.exit(0);
 }
 

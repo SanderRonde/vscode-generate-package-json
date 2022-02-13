@@ -146,7 +146,6 @@
 				"allowConciseArrowFunctionExpressionsStartingWithVoid": true
 			}
 		],
-		"unused-imports/no-unused-imports": "warn",
-		"no-process-exit": "off"
+		"unused-imports/no-unused-imports": "warn"
 	}
 }

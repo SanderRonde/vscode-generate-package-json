@@ -34,9 +34,9 @@ export function tryParseJSON<T>(json: string): T | null {
 	}
 }
 
-export function exitErr(error: string, exitCode: number = 1): never {
-	console.error(error);
-	process.exit(exitCode);
+export function exitErr(...errorArgs: unknown[]): never {
+	console.error(...errorArgs);
+	throw new Error();
 }
 
 export function optionalObjectProperty<
