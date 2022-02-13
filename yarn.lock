@@ -763,7 +763,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"ava@npm:^4.0.1":
+"ava@npm:latest":
   version: 4.0.1
   resolution: "ava@npm:4.0.1"
   dependencies:
@@ -4708,7 +4708,7 @@ __metadata:
     "@types/node": ^17.0.17
     "@typescript-eslint/eslint-plugin": ^5.11.0
     "@typescript-eslint/parser": ^5.11.0
-    ava: ^4.0.1
+    ava: latest
     esbuild: ^0.14.21
     eslint: ^8.9.0
     eslint-plugin-node: ^11.1.0
@@ -4719,6 +4719,9 @@ __metadata:
     prettier-plugin-sort-imports: ^1.5.11
     ts-node: ^10.5.0
     typescript: ^4.5.5
+  bin:
+    generate-package-json: dist/bin/bin.js
+    vscode-generate-package-json: dist/bin/bin.js
   languageName: unknown
   linkType: soft
 

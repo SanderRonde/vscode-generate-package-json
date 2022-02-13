@@ -3,9 +3,14 @@
 	"version": "1.0.0",
 	"description": "Generate your VSCode package.json file from code",
 	"main": "src/index.js",
+	"module": "src/index.es.js",
 	"author": {
 		"email": "awsdfgvhbjn@gmail.com",
 		"name": "Sander Ronde"
+	},
+	"bin": {
+		"generate-package-json": "dist/bin/bin.js",
+		"vscode-generate-package-json": "dist/bin/bin.js"
 	},
 	"repository": {
 		"url": "https://github.com/SanderRonde/vscode-generate-package-json"
@@ -15,8 +20,12 @@
 		"dist/**"
 	],
 	"scripts": {
-		"bundle": "esbuild --bundle --minify --platform=node --external:typescript --external:prettier --outfile=dist/index.js src/index.ts",
-		"test": "yarn bundle && ava test/test.ts",
+		"bundle:main": "esbuild --bundle --minify --platform=node --outfile=dist/index.js src/index.ts",
+		"bundle:main:es": "esbuild --bundle --minify --platform=node --format=esm --outfile=dist/index.js src/index.ts",
+		"bundle:bin": "esbuild --bundle --minify --platform=node --outfile=dist/bin/bin.js src/bin/bin.ts",
+		"bundle": "yarn bundle:main && yarn bundle:main:es && yarn bundle:bin",
+		"test": "yarn bundle && ava test/*.test.ts",
+		"testDev": "ava test/*.test.ts -- -- --dev",
 		"lint": "eslint src --ext ts",
 		"prepack": "yarn format && yarn lint && tsc && yarn bundle",
 		"format": "prettier --write src test"
@@ -24,9 +33,6 @@
 	"ava": {
 		"extensions": {
 			"ts": "module"
-		},
-		"nonSemVerExperiments": {
-			"configurableModuleFormat": true
 		},
 		"nodeArguments": [
 			"--loader=ts-node/esm"
@@ -36,7 +42,7 @@
 		"@types/node": "^17.0.17",
 		"@typescript-eslint/eslint-plugin": "^5.11.0",
 		"@typescript-eslint/parser": "^5.11.0",
-		"ava": "^4.0.1",
+		"ava": "latest",
 		"esbuild": "^0.14.21",
 		"eslint": "^8.9.0",
 		"eslint-plugin-node": "^11.1.0",
