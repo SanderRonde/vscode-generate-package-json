@@ -1,0 +1,34 @@
+{
+    "name": "vscode-generate-package-json",
+    "version": "1.0.0",
+    "description": "Generate your VSCode package.json file from code",
+    "main": "app/index.js",
+    "author": {
+        "email": "awsdfgvhbjn@gmail.com",
+        "name": "Sander Ronde"
+    },
+    "repository": {
+        "url": "https://github.com/SanderRonde/vscode-generate-package-json"
+    },
+    "license": "MIT",
+    "files": [
+        "dist/**"
+    ],
+    "scripts": {
+        "bundle": "esbuild --bundle --minify --platform=node --external:typescript --external:prettier --outfile=dist/index.js app/index.ts",
+        "test": "yarn bundle && ava test/test.ts",
+        "prepack": "yarn format && tsc && yarn bundle",
+        "format": "prettier --write app test"
+    },
+    "ava": {
+        "extensions": {
+            "ts": "module"
+        },
+        "nonSemVerExperiments": {
+            "configurableModuleFormat": true
+        },
+        "nodeArguments": [
+            "--loader=ts-node/esm"
+        ]
+    }
+}
