@@ -9,7 +9,12 @@ function getUnknownCommands(
 ): string[] {
 	return field
 		.filter(
-			(c) => 'command' in c && c.command && !commands.includes(c.command)
+			(c) =>
+				'command' in c &&
+				c.command &&
+				!commands.includes(c.command) &&
+				!c.command.startsWith('cmd.') &&
+				!commands.includes(c.command.split('cmd.')[1])
 		)
 		.map((c) => (c as { command: string }).command);
 }
