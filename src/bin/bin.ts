@@ -19,6 +19,9 @@ async function main(): Promise<void> {
 
 	if (mainCommand === 'generate') {
 		await generateFromArgv();
+		if (process.argv.includes('--validate')) {
+			await validateFromArgv();
+		}
 	} else if (mainCommand === 'validate') {
 		await validateFromArgv();
 	}

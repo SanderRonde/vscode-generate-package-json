@@ -14,6 +14,7 @@ Arguments:
 --handler: file path of the file in which command handlers are defined
 --prefix: optional prefix to put before all command palette commands
 -h: show this help dialog
+--validate: if main command is generate, also runs validate command afterwards with the same args
 `);
 	// eslint-disable-next-line no-process-exit
 	process.exit(0);
