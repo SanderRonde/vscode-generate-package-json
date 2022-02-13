@@ -27,7 +27,7 @@
 		"noEmit": true
 	},
 	"compileOnSave": true,
-	"include": ["./app", "./test"],
+	"include": ["src", "./test"],
 	"ts-node": {
 		"compilerOptions": {
 			"alwaysStrict": true,
