@@ -7,11 +7,11 @@ export function printHelp(): never {
 Usage: generate-package-json [generate/validate] --input src/commands.ts --package package.json --overwrite --handler src/cmdHandler.ts
 
 Arguments:
--i / --input: file path of command-definition file to use. Should export command and menus definitions, as well as commands enum
+-i / --input: file path of command-definition file to use. Should export command and menus definitions, as well as commands enum (can be a ts file)
 -o / --output: path to write the resulting package.json file to. Can be omitted if --overwrite is passed
 -p / --package: source package.json file to use. If --overwrite is used, this will also be the output path
 -w / --overwrite: overwrites original package.json file with the new output
---handler: file path of the file in which command handlers are defined
+--handler: file path of the file in which command handlers are defined (can be a ts file)
 --prefix: optional prefix to put before all command palette commands
 -h: show this help dialog
 --validate: if main command is generate, also runs validate command afterwards with the same args

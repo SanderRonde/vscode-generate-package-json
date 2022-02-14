@@ -1,4 +1,6 @@
+import * as tsNode from 'ts-node';
 import * as fs from 'fs';
+import path from 'path';
 
 export function tryReadFile(filePath: string): Promise<string | null> {
 	return new Promise<string | null>((resolve) => {
@@ -7,11 +9,11 @@ export function tryReadFile(filePath: string): Promise<string | null> {
 			{
 				encoding: 'utf-8',
 			},
-			(err) => {
+			(err, data) => {
 				if (err) {
 					resolve(null);
 				} else {
-					resolve(filePath);
+					resolve(data);
 				}
 			}
 		);
@@ -20,7 +22,12 @@ export function tryReadFile(filePath: string): Promise<string | null> {
 
 export function tryRequire<T>(filePath: string): T | null {
 	try {
-		return require(filePath) as T;
+		if (filePath.endsWith('.ts')) {
+			tsNode.register({ transpileOnly: true });
+		}
+		return require(path.isAbsolute(filePath)
+			? filePath
+			: path.join(process.cwd(), filePath)) as T;
 	} catch (e) {
 		return null;
 	}
