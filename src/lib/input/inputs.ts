@@ -202,7 +202,7 @@ async function readCommandHandlerFile(
 	handlerFilePath: string
 ): Promise<string> {
 	const handlerFile = await tryReadFile(handlerFilePath);
-	if (!handlerFile) {
+	if (handlerFile === null) {
 		exitErr(
 			`Failed to read command handler file at "${handlerFilePath}". Please check whether it exists`
 		);
