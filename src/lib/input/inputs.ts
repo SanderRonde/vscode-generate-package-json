@@ -204,7 +204,7 @@ async function readCommandHandlerFile(
 	const handlerFile = await tryReadFile(handlerFilePath);
 	if (!handlerFile) {
 		exitErr(
-			`Failed to read command handler file file at "${handlerFilePath}". Please check whether it exists`
+			`Failed to read command handler file at "${handlerFilePath}". Please check whether it exists`
 		);
 	}
 	return handlerFile;

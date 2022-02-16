@@ -11,6 +11,7 @@ export function tryReadFile(filePath: string): Promise<string | null> {
 			},
 			(err, data) => {
 				if (err) {
+					console.log(err);
 					resolve(null);
 				} else {
 					resolve(data);
