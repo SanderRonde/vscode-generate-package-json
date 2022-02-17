@@ -21,9 +21,9 @@
 	],
 	"types": "dist/types/src/index.d.ts",
 	"scripts": {
-		"bundle:main": "esbuild --bundle --minify --platform=node --external:ts-node --outfile=dist/index.js src/index.ts",
-		"bundle:main:es": "esbuild --bundle --minify --platform=node --external:ts-node --format=esm --outfile=dist/index.es.js src/index.ts",
-		"bundle:bin": "esbuild --bundle --minify --platform=node --external:ts-node --outfile=dist/bin/bin.js src/bin/bin.ts",
+		"bundle:main": "esbuild --bundle --minify --platform=node --external:ts-node --external:vscode --outfile=dist/index.js src/index.ts",
+		"bundle:main:es": "esbuild --bundle --minify --platform=node --external:ts-node --external:vscode --format=esm --outfile=dist/index.es.js src/index.ts",
+		"bundle:bin": "esbuild --bundle --minify --platform=node --external:ts-node --external:vscode --outfile=dist/bin/bin.js src/bin/bin.ts",
 		"bundle": "yarn bundle:main && yarn bundle:main:es && yarn bundle:bin",
 		"test": "yarn bundle && ava test/*.test.ts",
 		"testDev": "ava test/*.test.ts -- -- --dev",
@@ -41,6 +41,7 @@
 	},
 	"devDependencies": {
 		"@types/node": "^17.0.17",
+		"@types/vscode": "^1.64.0",
 		"@typescript-eslint/eslint-plugin": "^5.11.0",
 		"@typescript-eslint/parser": "^5.11.0",
 		"ava": "latest",

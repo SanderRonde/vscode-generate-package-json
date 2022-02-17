@@ -271,6 +271,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@types/vscode@npm:^1.64.0":
+  version: 1.64.0
+  resolution: "@types/vscode@npm:1.64.0"
+  checksum: 428cfce7f31ebf2d2a82e6ffdc2d903487adecd72147463e7b679d3280532b805e37e69065fbfd66fa144898a8fab86eaf3a0c4ac2861df1135ab41050a6888d
+  languageName: node
+  linkType: hard
+
 "@typescript-eslint/eslint-plugin@npm:^4.2.0":
   version: 4.33.0
   resolution: "@typescript-eslint/eslint-plugin@npm:4.33.0"
@@ -4706,6 +4713,7 @@ __metadata:
   resolution: "vscode-generate-package-json@workspace:."
   dependencies:
     "@types/node": ^17.0.17
+    "@types/vscode": ^1.64.0
     "@typescript-eslint/eslint-plugin": ^5.11.0
     "@typescript-eslint/parser": ^5.11.0
     ava: latest

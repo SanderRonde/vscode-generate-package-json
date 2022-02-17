@@ -1,3 +1,7 @@
+import {
+	createAutoRegisterCommandName,
+	autoRegisterFunctionNames,
+} from './commands';
 import { getIO, Package, readInputs, validateIO } from './lib/input/inputs';
 import { DeepPartial } from './lib/util';
 import { Inputs, IO } from './lib/types';
@@ -29,6 +33,12 @@ function validatePackageJSON(inputs: Inputs): void {
 
 function validateEnum(inputs: Inputs, packageJSON: DeepPartial<Package>): void {
 	const commandRegistrationFile = inputs.handlerFileSource;
+	const generatorName = new RegExp(
+		`(\\w+) = ${createAutoRegisterCommandName}`
+	).exec(commandRegistrationFile)?.[1];
+	const fnNames = generatorName
+		? [generatorName, ...autoRegisterFunctionNames]
+		: autoRegisterFunctionNames;
 	for (const enumKey in inputs.commandDefinitions) {
 		const enumValue = inputs.commandDefinitions[enumKey];
 		if (
@@ -38,6 +48,26 @@ function validateEnum(inputs: Inputs, packageJSON: DeepPartial<Package>): void {
 			throw new Error(
 				`No handler defined for command with enum key ${enumKey} and value "${enumValue}"`
 			);
+		}
+
+		if (inputs.commands[enumValue].inCommandPalette) {
+			const regexes = [
+				...fnNames.map(
+					(n) => new RegExp(`${n}\\(?\\s*(\\w+\\.)${enumKey}`)
+				),
+				...fnNames.map(
+					(n) => new RegExp(`${n}\\(?\\s*\\(?${enumValue}`)
+				),
+			];
+			if (!regexes.some((r) => r.test(commandRegistrationFile))) {
+				throw new Error(
+					`No command palette handler defined for command with enum key ${enumKey} and value "${enumValue}". Use ${autoRegisterFunctionNames
+						.map((n) => `"${n}"`)
+						.join(
+							' or '
+						)} to register the command. Alternatively, use "const myGenerator = createAutoRegisterCommandName(commands); myGenerator(name, handler);". Please don't rename this variable from its initial name because this script is not smart enough to track that.`
+				);
+			}
 		}
 	}
 

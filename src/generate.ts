@@ -4,7 +4,7 @@ import { getIO, Package, readInputs, validateIO } from './lib/input/inputs';
 import * as fs from 'fs/promises';
 import * as path from 'path';
 
-const COMMAND_PREFIX = 'cmd.';
+export const COMMAND_PREFIX = 'cmd.';
 
 function getActivationEvents(
 	packageJSON: DeepPartial<Package>,
