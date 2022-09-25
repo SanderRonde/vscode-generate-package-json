@@ -1,4 +1,5 @@
 import { Package } from '../src/lib/input/inputs';
+import { CommandDefinition } from '../src';
 import test from 'ava';
 
 const { generate } = require(process.argv.includes('--dev')
@@ -172,9 +173,9 @@ test('copies all config properties for commands', async (t) => {
 		COMMAND_Y = 'y',
 	}
 
-	const commandConfig = {
+	const commandConfig: CommandDefinition = {
 		title: generateRandomString(),
-		icon: generateRandomString(),
+		icon: '$(arrow-circle-down)',
 		enablement: generateRandomString(),
 	};
 	const outputPackage = JSON.parse(
