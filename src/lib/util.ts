@@ -20,16 +20,30 @@ export function tryReadFile(filePath: string): Promise<string | null> {
 	});
 }
 
-export function tryRequire<T>(filePath: string): T | null {
+export function tryRequire<T>(filePath: string):
+	| {
+			success: true;
+			value: T;
+	  }
+	| {
+			success: false;
+			error: Error;
+	  } {
 	try {
 		if (filePath.endsWith('.ts')) {
 			tsNode.register({ transpileOnly: true });
 		}
-		return require(path.isAbsolute(filePath)
-			? filePath
-			: path.join(process.cwd(), filePath)) as T;
+		return {
+			success: true,
+			value: require(path.isAbsolute(filePath)
+				? filePath
+				: path.join(process.cwd(), filePath)) as T,
+		};
 	} catch (e) {
-		return null;
+		return {
+			success: false,
+			error: e,
+		};
 	}
 }
 

@@ -85,17 +85,19 @@ function readCommandsFile(filePath: string):
 			commandDefinitions: Record<string, string>;
 	  }
 	| never {
-	const commandsFile = tryRequire<{
+	const commandsFileRequire = tryRequire<{
 		commands: Record<string, CommandDefinition>;
 		views: Record<string, ViewGroupDefinition>;
 		commandDefinitions: Record<string, string>;
 	}>(filePath);
-	if (!commandsFile) {
+	if (!commandsFileRequire.success) {
 		exitErr(
-			'Failed to read input file. Please pass it with --input {commandfile}'
+			'Failed to read input file. Please pass it with --input {commandfile}',
+			commandsFileRequire.error
 		);
 	}
 
+	const commandsFile = commandsFileRequire.value;
 	if (!('commands' in commandsFile)) {
 		exitErr(
 			'Input file should export an object under the "commands" name. Example:\n\nexport const commands = {};'
