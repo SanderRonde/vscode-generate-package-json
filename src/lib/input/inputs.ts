@@ -148,7 +148,6 @@ function readCommandsFile(filePath: string):
 }
 
 export interface Package {
-	activationEvents: string[];
 	contributes: {
 		commands: {
 			command: string;

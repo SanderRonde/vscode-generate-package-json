@@ -6,18 +6,6 @@ import * as path from 'path';
 
 export const COMMAND_PREFIX = 'cmd.';
 
-function getActivationEvents(
-	packageJSON: DeepPartial<Package>,
-	commands: [string, CommandDefinition][]
-): string[] {
-	return [
-		...(packageJSON.activationEvents?.filter(
-			(e) => !e.startsWith(`onCommand:${COMMAND_PREFIX}`)
-		) ?? []),
-		...commands.map(([command]) => `onCommand:${COMMAND_PREFIX}${command}`),
-	];
-}
-
 function getContributions(
 	packageJSON: DeepPartial<Package>,
 	commands: [string, CommandDefinition][],
@@ -155,10 +143,6 @@ function generatePackageJSON(inputs: Inputs): Package {
 
 	const newPackageJSON: Package = {
 		...packageJSON,
-		activationEvents: getActivationEvents(
-			packageJSON,
-			commandPaletteCommands
-		),
 		contributes: getContributions(
 			packageJSON,
 			commands,

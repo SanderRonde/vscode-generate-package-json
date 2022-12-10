@@ -52,42 +52,6 @@ test('does not modify the input package', async (t) => {
 	) as { name: string };
 	t.is(outputPackage.name, inputPackage.name);
 });
-test('appends only command palette to activation events', async (t) => {
-	enum Commands {
-		COMMAND_X = 'x',
-		COMMAND_Y = 'y',
-	}
-
-	const outputPackage = JSON.parse(
-		await generate(
-			{
-				commandDefinitions: Commands,
-				commands: {
-					[Commands.COMMAND_X]: { title: generateRandomString() },
-					[Commands.COMMAND_Y]: {
-						title: generateRandomString(),
-						inCommandPalette: true,
-					},
-				},
-				handlerFileSource: '',
-				outputPath: '',
-				packageJSON: {},
-				views: {},
-			},
-			false
-		)
-	) as Package;
-	t.assert(
-		!outputPackage.activationEvents.includes(
-			`onCommand:cmd.${Commands.COMMAND_X}`
-		)
-	);
-	t.assert(
-		outputPackage.activationEvents.includes(
-			`onCommand:cmd.${Commands.COMMAND_Y}`
-		)
-	);
-});
 test('appends only command palette to commands field', async (t) => {
 	enum Commands {
 		COMMAND_X = 'x',

@@ -52,9 +52,6 @@ This generates the following package.json file for you:
 ```json
 {
 	...
-	"activationEvents": [
-		"onCommand:cmd.my.command.1",
-	],
 	"contributes": {
 		"commands": [{
 			"command": "my.command.1",
