@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { CommandDefinition, COMMAND_PREFIX } from '.';
+import { CommandDefinition, COMMAND_PREFIX, DefaultCodiconStrings } from '.';
 import type { Disposable } from 'vscode';
 
 export const autoRegisterFunctionNames: string[] = [
@@ -27,10 +27,10 @@ export function registerCommandPaletteCommandregisterCommand(
 	};
 }
 
-export function autoRegisterCommand(
+export function autoRegisterCommand<C extends string = DefaultCodiconStrings>(
 	command: string,
 	callback: (...args: unknown[]) => unknown,
-	commandDefinitions: Record<string, CommandDefinition>,
+	commandDefinitions: Record<string, CommandDefinition<C>>,
 	thisArg?: unknown
 ): Disposable {
 	const vscode = require('vscode') as typeof import('vscode');
@@ -46,9 +46,9 @@ export function autoRegisterCommand(
 }
 
 export const createAutoRegisterCommandName = 'createAutoRegisterCommand';
-export function createAutoRegisterCommand(
-	commandDefinitions: Record<string, CommandDefinition>
-) {
+export function createAutoRegisterCommand<
+	C extends string = DefaultCodiconStrings
+>(commandDefinitions: Record<string, CommandDefinition<C>>) {
 	return (
 		command: string,
 		callback: (...args: any[]) => any,
