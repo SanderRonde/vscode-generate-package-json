@@ -28,6 +28,7 @@ test('can be called with minimal params', async (t) => {
 				outputPath: '',
 				packageJSON: {},
 				views: {},
+				configuration: {},
 			},
 			false
 		);
@@ -46,6 +47,7 @@ test('does not modify the input package', async (t) => {
 				outputPath: '',
 				packageJSON: inputPackage,
 				views: {},
+				configuration: {},
 			},
 			false
 		)
@@ -73,6 +75,7 @@ test('appends only command palette to commands field', async (t) => {
 				outputPath: '',
 				packageJSON: {},
 				views: {},
+				configuration: {},
 			},
 			false
 		)
@@ -121,6 +124,7 @@ test('applies prefix when passed', async (t) => {
 				packageJSON: {},
 				prefix,
 				views: {},
+				configuration: {},
 			},
 			false
 		)
@@ -153,6 +157,7 @@ test('copies all config properties for commands', async (t) => {
 				outputPath: '',
 				packageJSON: {},
 				views: {},
+				configuration: {},
 			},
 			false
 		)
@@ -193,6 +198,7 @@ test('adds commands to keybindings if so configured', async (t) => {
 				outputPath: '',
 				packageJSON: {},
 				views: {},
+				configuration: {},
 			},
 			false
 		)
@@ -241,6 +247,7 @@ test('adds commands to command palette only if so configured', async (t) => {
 				outputPath: '',
 				packageJSON: {},
 				views: {},
+				configuration: {},
 			},
 			false
 		)
@@ -288,6 +295,7 @@ test('adds views/submenus', async (t) => {
 						],
 					},
 				},
+				configuration: {},
 			},
 			false
 		)
@@ -333,6 +341,7 @@ test('generates groups', async (t) => {
 						],
 					},
 				},
+				configuration: {},
 			},
 			false
 		)
@@ -380,6 +389,7 @@ test('allows overriding of group', async (t) => {
 						],
 					},
 				},
+				configuration: {},
 			},
 			false
 		)
@@ -424,6 +434,7 @@ test('sets view config', async (t) => {
 						],
 					},
 				},
+				configuration: {},
 			},
 			false
 		)

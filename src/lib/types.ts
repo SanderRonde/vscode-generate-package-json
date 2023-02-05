@@ -1,3 +1,4 @@
+import { ConfigurationJSONDefinition } from './configuration-json-type';
 import { Package } from './input/inputs';
 import { DeepPartial } from './util';
 
@@ -97,6 +98,13 @@ export interface ViewGroupDefinition<COMMANDS = string> {
 	[groupName: string]: ViewDefinition<COMMANDS>[];
 }
 
+export interface ConfigurationDefinition {
+	/**
+	 * JSON definition in package.json
+	 */
+	jsonDefinition: ConfigurationJSONDefinition;
+}
+
 /**
  * Inputs for this package to run
  */
@@ -113,6 +121,10 @@ export interface Inputs {
 	 * An enum of the command definitions
 	 */
 	commandDefinitions: Record<string, string>;
+	/**
+	 * An enum of configuration definitions
+	 */
+	configuration: Record<string, ConfigurationDefinition>;
 	/**
 	 * Package.json file
 	 */
@@ -136,7 +148,7 @@ export interface Inputs {
  */
 export interface IO {
 	/**
-	 * File containing commands and views definitions
+	 * File containing commands, views and configuration definitions
 	 */
 	inputPath: string;
 	/**

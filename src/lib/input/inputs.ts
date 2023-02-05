@@ -1,6 +1,7 @@
 import { exitErr, tryParseJSON, tryReadFile, tryRequire } from '../util';
+import { ConfigurationJSONDefinition } from '../configuration-json-type';
+import { CommandDefinition, ConfigurationDefinition } from '../types';
 import { Inputs, IO, ViewGroupDefinition } from '../..';
-import { CommandDefinition } from '../types';
 
 export function printHelp(): never {
 	console.log(`
@@ -83,12 +84,14 @@ function readCommandsFile(filePath: string):
 			commands: Record<string, CommandDefinition>;
 			views: Record<string, ViewGroupDefinition>;
 			commandDefinitions: Record<string, string>;
+			configuration: Record<string, ConfigurationDefinition>;
 	  }
 	| never {
 	const commandsFileRequire = tryRequire<{
 		commands: Record<string, CommandDefinition>;
 		views: Record<string, ViewGroupDefinition>;
 		commandDefinitions: Record<string, string>;
+		configuration: Record<string, ConfigurationDefinition>;
 	}>(filePath);
 	if (!commandsFileRequire.success) {
 		exitErr(
@@ -135,8 +138,24 @@ function readCommandsFile(filePath: string):
 		typeof commandDefinitionsExport !== 'object'
 	) {
 		exitErr(
-			"Input file's views export should be an enum, found",
+			"Input file's views commands should be an enum, found",
 			commandDefinitionsExport
+		);
+	}
+
+	if (!('configuration' in commandsFile)) {
+		exitErr(
+			'Input file should export an object under the "configuration" name. Example:\n\nexport const configuration = {enabled: {type: \'boolean\'}};'
+		);
+	}
+	const configurationDefinitionsExport = commandsFile.configuration;
+	if (
+		!configurationDefinitionsExport ||
+		typeof configurationDefinitionsExport !== 'object'
+	) {
+		exitErr(
+			"Input file's views configuration should be an object, found",
+			configurationDefinitionsExport
 		);
 	}
 
@@ -144,11 +163,17 @@ function readCommandsFile(filePath: string):
 		commands: commandsExport,
 		views: viewsExport,
 		commandDefinitions: commandDefinitionsExport,
+		configuration: configurationDefinitionsExport,
 	};
 }
 
 export interface Package {
 	contributes: {
+		configuration: {
+			type: 'object';
+			title: string;
+			properties: Record<string, ConfigurationJSONDefinition>;
+		};
 		commands: {
 			command: string;
 			title: string;
@@ -212,9 +237,8 @@ async function readCommandHandlerFile(
 }
 
 export async function readInputs(io: IO): Promise<Inputs> {
-	const { commands, views, commandDefinitions } = readCommandsFile(
-		io.inputPath
-	);
+	const { commands, views, commandDefinitions, configuration } =
+		readCommandsFile(io.inputPath);
 	return {
 		commands,
 		views,
@@ -223,5 +247,6 @@ export async function readInputs(io: IO): Promise<Inputs> {
 		prefix: io.commandPrefix,
 		handlerFileSource: await readCommandHandlerFile(io.handlerFile),
 		outputPath: io.outputPath,
+		configuration,
 	};
 }

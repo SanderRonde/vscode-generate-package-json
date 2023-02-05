@@ -1,5 +1,11 @@
+import {
+	CommandDefinition,
+	Inputs,
+	ViewDefinition,
+	IO,
+	ConfigurationDefinition,
+} from './lib/types';
 import { DeepPartial, fromEntries, optionalObjectProperty } from './lib/util';
-import { CommandDefinition, Inputs, ViewDefinition, IO } from './lib/types';
 import { getIO, Package, readInputs, validateIO } from './lib/input/inputs';
 import * as fs from 'fs/promises';
 import * as path from 'path';
@@ -11,12 +17,16 @@ function getContributions(
 	commands: [string, CommandDefinition][],
 	commandPaletteCommands: [string, CommandDefinition][],
 	inputs: Inputs
-): Pick<Package['contributes'], 'commands' | 'keybindings' | 'menus'> {
+): Pick<
+	Package['contributes'],
+	'commands' | 'keybindings' | 'menus' | 'configuration'
+> {
 	return {
 		...packageJSON.contributes,
 		commands: getCommands(commands, commandPaletteCommands, inputs),
 		keybindings: getKeybindings(commands),
 		menus: getMenus(packageJSON, commands, commandPaletteCommands, inputs),
+		configuration: getConfiguration(inputs.configuration),
 	};
 }
 
@@ -131,6 +141,41 @@ function getCommands(
 			};
 		}),
 	];
+}
+
+function stripShape<T>(input: T): T {
+	if (typeof input !== 'object' || !input || !('type' in input)) {
+		return input;
+	}
+	if (Array.isArray(input)) {
+		return input;
+	}
+
+	const newObj: Record<string, unknown> = {};
+	for (const key in input) {
+		if (key === '__shape') {
+			continue;
+		}
+		newObj[key] = stripShape(input[key as keyof typeof input]);
+	}
+	return newObj as T;
+}
+
+function getConfiguration(
+	configuration: Record<string, ConfigurationDefinition>
+): Package['contributes']['configuration'] {
+	// This is essentially just a stringified version of the configuration object
+	// but without the "shape" property in objects.
+	const configurationJson: Package['contributes']['configuration']['properties'] =
+		{};
+	for (const key in configuration) {
+		configurationJson[key] = stripShape(configuration[key].jsonDefinition);
+	}
+	return {
+		type: 'object',
+		title: 'Extension Configuration',
+		properties: configurationJson,
+	};
 }
 
 function generatePackageJSON(inputs: Inputs): Package {

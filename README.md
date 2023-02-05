@@ -10,7 +10,7 @@ $ yarn vscode-generate-package-json --input src/commands.ts --ovewrite -p packag
 ```
 
 ```ts
-// src/commands.ts
+// src/defs.ts
 enum MyExtensionCommand {
 	X = 'my.command.1',
 	Y = 'my.command.2',
@@ -43,6 +43,15 @@ export const views = {
 	},
 };
 
+export const configuration = {
+	enabled: {
+		'myExtension.jsonDefinition': {
+			type: 'boolean',
+			default: false,
+		},
+	},
+} as const;
+
 // Lets the package know which commands you have
 export const commandDefinitions = MyExtensionCommand;
 ```
@@ -53,6 +62,16 @@ This generates the following package.json file for you:
 {
 	...
 	"contributes": {
+		"configuration": {
+			"type": "object",
+			"title": "Extension Configuration",
+			"properties": {
+				"myExtension.jsonDefinition": {
+					"type": "boolean",
+					"default": false
+				}
+			}
+		},
 		"commands": [{
 			"command": "my.command.1",
 			"title": "Lint/check file",
@@ -108,4 +127,21 @@ const condition = and(
 	viewItemContains(Identifiers.First),
 	viewitemContains(Identifiers.Second)
 );
+```
+
+Finally you can also use the configuration you wrote to generate typed version of `getConfiguration`. For example:
+
+```ts
+import type {
+	GetConfigurationType,
+	TypedWorkspaceConfiguration,
+} from 'vscode-generate-package-json';
+import { configuration } from './defs';
+
+export function getConfiguration(
+	section?: string,
+	scope?: ConfigurationScope | null
+): TypedWorkspaceConfiguration<GetConfigurationType<typeof configuration>> {
+	return workspace.getConfiguration(section, scope);
+}
 ```

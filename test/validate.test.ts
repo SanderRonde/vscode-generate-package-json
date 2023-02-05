@@ -25,6 +25,7 @@ test('can be called with minimal params', (t) => {
 			outputPath: '',
 			packageJSON: {},
 			views: {},
+			configuration: {},
 		});
 	});
 });
@@ -45,6 +46,7 @@ test('finds unknown commands', (t) => {
 					},
 				},
 				views: {},
+				configuration: {},
 			});
 		},
 		{ message: new RegExp(`.*commands.*${cmdName}.*`) }
@@ -63,6 +65,7 @@ test('finds unknown commands', (t) => {
 					},
 				},
 				views: {},
+				configuration: {},
 			});
 		},
 		{ message: new RegExp(`.*keybindings.*${cmdName}.*`) }
@@ -83,6 +86,7 @@ test('finds unknown commands', (t) => {
 					},
 				},
 				views: {},
+				configuration: {},
 			});
 		},
 		{ message: new RegExp(`.*commandPalette.*${cmdName}.*`) }
@@ -108,6 +112,7 @@ test('finds commands with no handler', (t) => {
 					},
 				},
 				views: {},
+				configuration: {},
 			});
 		},
 		{ message: new RegExp(`.*No handler defined.*${Commands.X}.*`) }
@@ -132,6 +137,7 @@ test('throws no error if a handler is defined', (t) => {
 				},
 			},
 			views: {},
+			configuration: {},
 		});
 	});
 });
@@ -151,6 +157,7 @@ test('finds unused commands', (t) => {
 				outputPath: '',
 				packageJSON: {},
 				views: {},
+				configuration: {},
 			});
 		},
 		{ message: new RegExp(`.*unused command.*${Commands.X}.*`) }
