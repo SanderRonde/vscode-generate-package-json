@@ -54,6 +54,7 @@ export interface ConfigurationStringJSONDefinition
 	minLength?: number;
 	pattern?: string;
 	enum?: string[];
+	enumDescriptions?: string[];
 	contentMediaType?: string;
 	contentEncoding?: string;
 }
