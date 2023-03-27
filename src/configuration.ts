@@ -7,8 +7,8 @@ import {
 	ConfigurationObjectJSONDefinition,
 	ConfigurationStringJSONDefinition,
 } from './lib/configuration-json-type';
+import type { ConfigurationTarget, WorkspaceConfiguration } from 'vscode';
 import { ConfigurationDefinition } from './lib/types';
-import type { WorkspaceConfiguration } from 'vscode';
 
 type GetArrayConfigurationTypeFallback<
 	T extends ConfigurationArrayJSONDefinition<unknown>
@@ -92,6 +92,8 @@ export interface TypedWorkspaceConfiguration<T> extends WorkspaceConfiguration {
 	has<K extends Extract<keyof T, string>>(section: K): boolean;
 	update<K extends Extract<keyof T, string>>(
 		section: K,
-		value: T[K]
+		value: T[K],
+		configurationTarget?: ConfigurationTarget | boolean | null,
+		overrideInLanguage?: boolean
 	): Thenable<void>;
 }
