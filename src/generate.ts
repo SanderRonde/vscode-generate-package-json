@@ -26,7 +26,7 @@ function getContributions(
 		commands: getCommands(commands, commandPaletteCommands, inputs),
 		keybindings: getKeybindings(commands),
 		menus: getMenus(packageJSON, commands, commandPaletteCommands, inputs),
-		configuration: getConfiguration(inputs.configuration),
+		configuration: getConfiguration(inputs.configuration, inputs.name),
 	};
 }
 
@@ -162,7 +162,8 @@ function stripShape<T>(input: T): T {
 }
 
 function getConfiguration(
-	configuration: Record<string, ConfigurationDefinition>
+	configuration: Record<string, ConfigurationDefinition>,
+	name: string
 ): Package['contributes']['configuration'] {
 	// This is essentially just a stringified version of the configuration object
 	// but without the "shape" property in objects.
@@ -173,7 +174,7 @@ function getConfiguration(
 	}
 	return {
 		type: 'object',
-		title: 'Extension Configuration',
+		title: name,
 		properties: configurationJson,
 	};
 }

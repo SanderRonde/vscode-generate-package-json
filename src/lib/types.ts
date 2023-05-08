@@ -130,6 +130,10 @@ export interface Inputs {
 	 */
 	packageJSON: DeepPartial<Package> & Record<string, unknown>;
 	/**
+	 * Name of the package, to be used for the name of the settings object
+	 */
+	name: string;
+	/**
 	 * Optional prefix for command-palette commands
 	 */
 	prefix?: string;
@@ -167,6 +171,10 @@ export interface IO {
 	 * File path to the file that registers command handlers
 	 */
 	handlerFile: string;
+	/**
+	 * Name of the package, to be used for the name of the settings object
+	 */
+	name: string;
 }
 
 /**

@@ -41,6 +41,8 @@ export function getIO(): Partial<InputIO> {
 			io.handlerFile = process.argv[++i];
 		} else if (arg === '--prefix') {
 			io.commandPrefix = process.argv[++i];
+		} else if (arg === '--name') {
+			io.name = process.argv[++i];
 		} else if (arg === '-h') {
 			printHelp();
 		}
@@ -69,6 +71,9 @@ export function validateIO(io: Partial<InputIO>): IO {
 			'No command handler file specified. Pass it with --handler {handlerfile}'
 		);
 	}
+	if (!io.name) {
+		exitErr('No package name specified. Pass it with --name {name}');
+	}
 
 	return {
 		inputPath: io.inputPath,
@@ -76,6 +81,7 @@ export function validateIO(io: Partial<InputIO>): IO {
 		inPackagePath: io.inPackagePath,
 		handlerFile: io.handlerFile,
 		commandPrefix: io.commandPrefix,
+		name: io.name,
 	};
 }
 
@@ -248,5 +254,6 @@ export async function readInputs(io: IO): Promise<Inputs> {
 		handlerFileSource: await readCommandHandlerFile(io.handlerFile),
 		outputPath: io.outputPath,
 		configuration,
+		name: io.name,
 	};
 }
