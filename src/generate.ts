@@ -130,7 +130,7 @@ function getCommands(
 		}),
 		// Command palette commands
 		...commandPaletteCommands.map(([command, commandConfig]) => {
-			const prefixText = inputs.prefix ? `${inputs.prefix}: ` : '';
+			const prefixText = `${inputs.prefix}: `;
 			return {
 				command: `${COMMAND_PREFIX}${command}`,
 				title: `${prefixText}${commandConfig.title}`,

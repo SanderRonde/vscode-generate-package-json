@@ -134,9 +134,9 @@ export interface Inputs {
 	 */
 	name: string;
 	/**
-	 * Optional prefix for command-palette commands
+	 * Prefix for command-palette commands
 	 */
-	prefix?: string;
+	prefix: string;
 	/**
 	 * Content of the file that registers command handlers
 	 */

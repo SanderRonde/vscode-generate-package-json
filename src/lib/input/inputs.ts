@@ -12,10 +12,11 @@ Arguments:
 -o / --output: path to write the resulting package.json file to. Can be omitted if --overwrite is passed
 -p / --package: source package.json file to use. If --overwrite is used, this will also be the output path
 -w / --overwrite: overwrites original package.json file with the new output
+-n / --name: name of the extension (used for configuration's name)
 --handler: file path of the file in which command handlers are defined (can be a ts file)
---prefix: optional prefix to put before all command palette commands
--h: show this help dialog
+--prefix: prefix to put before all command palette commands (defaults to name if this is not specified)
 --validate: if main command is generate, also runs validate command afterwards with the same args
+-h: show this help dialog
 `);
 	// eslint-disable-next-line no-process-exit
 	process.exit(0);
@@ -37,12 +38,12 @@ export function getIO(): Partial<InputIO> {
 			io.inPackagePath = process.argv[++i];
 		} else if (arg === '-w' || arg === '--overwrite') {
 			io.overwrite = true;
+		} else if (arg === '--name' || arg === '-n') {
+			io.name = process.argv[++i];
 		} else if (arg === '--handler') {
 			io.handlerFile = process.argv[++i];
 		} else if (arg === '--prefix') {
 			io.commandPrefix = process.argv[++i];
-		} else if (arg === '--name') {
-			io.name = process.argv[++i];
 		} else if (arg === '-h') {
 			printHelp();
 		}
@@ -250,7 +251,7 @@ export async function readInputs(io: IO): Promise<Inputs> {
 		views,
 		commandDefinitions,
 		packageJSON: await readPackage(io.inPackagePath),
-		prefix: io.commandPrefix,
+		prefix: io.name ?? io.commandPrefix,
 		handlerFileSource: await readCommandHandlerFile(io.handlerFile),
 		outputPath: io.outputPath,
 		configuration,

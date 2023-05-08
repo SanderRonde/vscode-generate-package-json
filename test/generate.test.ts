@@ -29,6 +29,8 @@ test('can be called with minimal params', async (t) => {
 				packageJSON: {},
 				views: {},
 				configuration: {},
+				name: generateRandomString(),
+				prefix: generateRandomString(),
 			},
 			false
 		);
@@ -48,6 +50,8 @@ test('does not modify the input package', async (t) => {
 				packageJSON: inputPackage,
 				views: {},
 				configuration: {},
+				name: generateRandomString(),
+				prefix: generateRandomString(),
 			},
 			false
 		)
@@ -76,6 +80,8 @@ test('appends only command palette to commands field', async (t) => {
 				packageJSON: {},
 				views: {},
 				configuration: {},
+				name: generateRandomString(),
+				prefix: generateRandomString(),
 			},
 			false
 		)
@@ -125,6 +131,7 @@ test('applies prefix when passed', async (t) => {
 				prefix,
 				views: {},
 				configuration: {},
+				name: generateRandomString(),
 			},
 			false
 		)
@@ -158,6 +165,8 @@ test('copies all config properties for commands', async (t) => {
 				packageJSON: {},
 				views: {},
 				configuration: {},
+				name: generateRandomString(),
+				prefix: generateRandomString(),
 			},
 			false
 		)
@@ -199,6 +208,8 @@ test('adds commands to keybindings if so configured', async (t) => {
 				packageJSON: {},
 				views: {},
 				configuration: {},
+				name: generateRandomString(),
+				prefix: generateRandomString(),
 			},
 			false
 		)
@@ -248,6 +259,8 @@ test('adds commands to command palette only if so configured', async (t) => {
 				packageJSON: {},
 				views: {},
 				configuration: {},
+				name: generateRandomString(),
+				prefix: generateRandomString(),
 			},
 			false
 		)
@@ -296,6 +309,8 @@ test('adds views/submenus', async (t) => {
 					},
 				},
 				configuration: {},
+				name: generateRandomString(),
+				prefix: generateRandomString(),
 			},
 			false
 		)
@@ -342,6 +357,8 @@ test('generates groups', async (t) => {
 					},
 				},
 				configuration: {},
+				name: generateRandomString(),
+				prefix: generateRandomString(),
 			},
 			false
 		)
@@ -390,6 +407,8 @@ test('allows overriding of group', async (t) => {
 					},
 				},
 				configuration: {},
+				name: generateRandomString(),
+				prefix: generateRandomString(),
 			},
 			false
 		)
@@ -435,6 +454,8 @@ test('sets view config', async (t) => {
 					},
 				},
 				configuration: {},
+				name: generateRandomString(),
+				prefix: generateRandomString(),
 			},
 			false
 		)

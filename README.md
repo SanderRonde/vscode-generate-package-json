@@ -6,7 +6,7 @@ A package for generating your VSCode package.json file from code instead of writ
 
 ```
 $ yarn add vscode-generate-package-json
-$ yarn vscode-generate-package-json --input src/commands.ts --ovewrite -p package.json --handler src/commandd-handler.ts --validate --prefix MyExtension
+$ yarn vscode-generate-package-json --input src/commands.ts --ovewrite -p package.json --handler src/commandd-handler.ts --validate --name MyExtension
 ```
 
 ```ts
