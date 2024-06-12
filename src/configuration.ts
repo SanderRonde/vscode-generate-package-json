@@ -59,7 +59,7 @@ type GetSingleJsonConfigurationType<T extends ConfigurationJSONDefinition> =
 		: T extends ConfigurationNumberJSONDefinition
 		? WithDefault<number, T['default']>
 		: T extends ConfigurationStringJSONDefinition
-		? T extends { enum: (infer E)[] }
+		? T extends { enum: readonly (infer E)[] }
 			? WithDefault<E, T['default']>
 			: WithDefault<string, T['default']>
 		: T extends ConfigurationNullJSONDefinition

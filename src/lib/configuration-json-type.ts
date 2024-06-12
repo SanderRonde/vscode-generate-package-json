@@ -7,7 +7,7 @@ interface BaseConfigurationJSONDefinition {
 	description?: string;
 	readOnly?: boolean;
 	writeOnly?: boolean;
-	required?: string[];
+	required?: readonly string[];
 	const?: boolean;
 	if?: ConfigurationJSONDefinition;
 	then?: ConfigurationJSONDefinition;
@@ -53,8 +53,8 @@ export interface ConfigurationStringJSONDefinition
 	maxLength?: number;
 	minLength?: number;
 	pattern?: string;
-	enum?: string[];
-	enumDescriptions?: string[];
+	enum?: readonly string[];
+	enumDescriptions?: readonly string[];
 	contentMediaType?: string;
 	contentEncoding?: string;
 }
